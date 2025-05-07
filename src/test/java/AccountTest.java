@@ -8,19 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AccountTest {
 
     @Test
-    void shouldSetBalanceWithCorrectPin() {
+    void shouldAuthenticateWithCorrectPin() {
         Account account = new Account("1234");
-        account.setBalance(500, "1234");
-        assertEquals(500, account.getBalance());
-    }
+        account.authenticate("1234");
 
-    @Test
-    void shouldThrowIfWrongPin() {
-        Account account = new Account("1234");
-        Exception exception = assertThrows(SecurityException.class, () -> {
-            account.setBalance(500, "0000");
-        });
-        assertEquals("PIN code is incorrect", exception.getMessage());
+        assertTrue(account.isAuthenticated());
     }
 }
 
