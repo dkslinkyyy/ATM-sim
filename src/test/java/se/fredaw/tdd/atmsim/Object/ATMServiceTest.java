@@ -15,7 +15,7 @@ class ATMServiceTest {
   // When the test is started, the balance is set to 1000
   @BeforeEach
     void setup() {
-      atmService = new ATMService(1000);
+      atmService = new ATMService();
       account = new Account("0000");
       account.authenticate("0000");
 
@@ -23,16 +23,23 @@ class ATMServiceTest {
 
   }
 
+@Test
+void insufficientBalanceTest() {
+    account.authenticate("0000");
+    atmService.withdraw(account, 2001);
+    assertEquals(1000, account.getBalance());
+}
+
 
   @Test
   void shouldAuthenticateWithCorrectPin() {
 
-    account.authenticate("0000§");
+    account.authenticate("0000");
 
     assertTrue(account.isAuthenticated());
   }
 
-  //Here we test if the withdraw function is correct
+  //Here we test if the withdrawl function is correct
   @Test
     void withdrawTestandAuthenticate() {
     account.authenticate("0000");
