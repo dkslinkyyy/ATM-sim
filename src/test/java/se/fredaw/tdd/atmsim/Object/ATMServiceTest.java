@@ -15,7 +15,7 @@ class ATMServiceTest {
   // When the test is started, the balance is set to 1000
   @BeforeEach
     void setup() {
-      atmService = new ATMService();
+      atmService = new ATMService(1000);
       account = new Account("0000");
       account.authenticate("0000");
 
