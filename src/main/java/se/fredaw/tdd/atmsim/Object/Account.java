@@ -22,6 +22,9 @@ public class Account {
 
 
     public void setBalance(int balance) {
+        if (!isAuthenticated()) {
+            throw new IllegalStateException("Account not authenticated");
+        }
         this.balance = balance;
     }
     public int getBalance() {
