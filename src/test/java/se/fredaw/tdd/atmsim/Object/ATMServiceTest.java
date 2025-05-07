@@ -3,6 +3,7 @@ package se.fredaw.tdd.atmsim.Object;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ATMServiceTest {
 
@@ -10,20 +11,31 @@ class ATMServiceTest {
   private Account account;
 
 
+
   // When the test is started, the balance is set to 1000
   @BeforeEach
     void setup() {
       atmService = new ATMService();
-      account = new Account();
+      account = new Account("0000");
+      account.authenticate("0000");
+
       account.setBalance (1000);
 
+  }
 
 
+  @Test
+  void shouldAuthenticateWithCorrectPin() {
+
+    account.authenticate("0000§");
+
+    assertTrue(account.isAuthenticated());
   }
 
   //Here we test if the withdraw function is correct
   @Test
-    void withdrawTest() {
+    void withdrawTestandAuthenticate() {
+    account.authenticate("0000");
     atmService.withdraw(account, 500);
     assertEquals(500, account.getBalance());
 
@@ -33,7 +45,9 @@ class ATMServiceTest {
 
   //Here we try to add money to the account
   @Test
-    void depositTest(){
+    void depositTestandAuthenticate(){
+    account.authenticate("0000");
+    assertTrue(account.isAuthenticated());
     atmService.deposit(account, 500);
     assertEquals(1500, account.getBalance());
   }
