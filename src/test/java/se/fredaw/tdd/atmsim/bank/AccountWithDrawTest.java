@@ -8,7 +8,7 @@ class AccountWithDrawTest {
 
     @Test
     void withdrawItShouldFailBecauseTheAmountisLowerThenWhatisInTotal() {
-        Account account = new Account("0000",1000);
+        Account account = new Account("abc1234", "1234", 1000);
 
         try{
             account.withdraw(700);
@@ -23,7 +23,7 @@ class AccountWithDrawTest {
 
     @Test
     void withdrawItShouldWorkBecauseTotalisCorrect() {
-        Account account = new Account("0000",1000);
+        Account account = new Account("abc1234", "1234",1000);
 
         try{
             account.withdraw(700);

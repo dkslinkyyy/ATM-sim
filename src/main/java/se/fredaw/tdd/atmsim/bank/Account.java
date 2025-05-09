@@ -1,13 +1,13 @@
 package se.fredaw.tdd.atmsim.bank;
 
 public class Account {
-
-
+    private final String accountId;
     private int balance;
     private String pincode;
     private boolean authenticated;
 
-    public Account(String pincode, int startingBalance) {
+    public Account(String accountId, String pincode, int startingBalance) {
+        this.accountId = accountId;
         this.pincode = pincode;
         this.authenticated = false;
         this.balance = startingBalance;

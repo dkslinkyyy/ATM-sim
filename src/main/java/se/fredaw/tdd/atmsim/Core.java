@@ -23,33 +23,33 @@ public class Core {
         banks.add(new Bank("Nordea", "5555", 1000));
 
         //Create an account with a specific pin
-        Account acc = new Account("0000", 1000);
+        Account acc = new Account("abc1234", "1234", 0000);
         Scanner scanner = new Scanner(System.in);
         acc.setBalance(1000);
 
         //Meny that will appear if the user is correct
         boolean isRunning = true;
 
-        boolean isAuthenticated = true;
-
-        while (isAuthenticated){
-            System.out.println();
-            System.out.println("Enter your pincode");
-            String pincode = scanner.nextLine();
-            acc.authenticate(pincode);
-
-            if(acc.isAuthenticated()) {
-                isAuthenticated = false;
-                System.out.println();
-                System.out.println("Authenticated is successful");
-            }
-
-            else{
-                System.out.println();
-                System.out.println("Authentication failed");
-                System.out.println("Please try again");
-            }
-        }
+//        boolean isAuthenticated = true;
+//
+//        while (isAuthenticated){
+//            System.out.println();
+//            System.out.println("Enter your pincode");
+//            String pincode = scanner.nextLine();
+//            acc.authenticate(pincode);
+//
+//            if(acc.isAuthenticated()) {
+//                isAuthenticated = false;
+//                System.out.println();
+//                System.out.println("Authenticated is successful");
+//            }
+//
+//            else{
+//                System.out.println();
+//                System.out.println("Authentication failed");
+//                System.out.println("Please try again");
+//            }
+//        }
 
         while (isRunning){
             System.out.println();
