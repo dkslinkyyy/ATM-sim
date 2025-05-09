@@ -10,9 +10,10 @@ public class Account {
     private final String pincode;
     private boolean authenticated = false;
 
-    public Account(String accountId, String paramPincode) {
+    public Account(String accountId, String paramPincode, int startingBalance) {
         this.accountId = accountId;
         this.pincode = paramPincode;
+        this.balance = startingBalance;
     }
 
 

@@ -40,7 +40,7 @@ public class AuthenticatorTest {
 
     @Test
     void testAuthenticationSuccess() {
-        Account account = new Account("abc1234", "1234");
+        Account account = new Account("abc1234", "1234", 1000);
         testRepo.setAccount(account);
         assertTrue(authenticator.authenticate(account, "1234"));
     }
@@ -48,7 +48,7 @@ public class AuthenticatorTest {
 
     @Test
     public void testAuthenticationFailsWithWrongPin() {
-        Account account = new Account("abc1234", "4321");
+        Account account = new Account("abc1234", "4321", 1000);
         testRepo.setAccount(account);
 
         assertFalse(authenticator.authenticate(account, "12345"));

@@ -2,6 +2,9 @@ package se.fredaw.tdd.atmsim.Object;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import se.fredaw.tdd.atmsim.atm.ATMService;
+import se.fredaw.tdd.atmsim.bank.Account;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,10 +19,8 @@ class ATMServiceTest {
   @BeforeEach
     void setup() {
       atmService = new ATMService();
-      account = new Account("abc1234", "0000");
-//      account.authenticate("0000");
+      account = new Account("abc1234", "0000", 1000);
 
-      account.setBalance (1000);
 
   }
 
