@@ -16,7 +16,7 @@ class ATMServiceTest {
   @BeforeEach
     void setup() {
       atmService = new ATMService();
-      account = new Account("0000");
+      account = new Account("0000", startingBalance);
       account.authenticate("0000");
 
       account.setBalance (1000);

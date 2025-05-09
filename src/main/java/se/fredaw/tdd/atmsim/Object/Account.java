@@ -1,28 +1,22 @@
 package se.fredaw.tdd.atmsim.Object;
 
-import java.util.Scanner;
-
 public class Account {
+
+
 
 
 
 
     private int balance;
 
-    private String pincode;
-    private boolean authenticated = false;
 
-    public Account(String paramPincode) {
-        this.pincode = paramPincode;
+    public Account(int balance, String pincode, int startingBalance) {
+
+        this.balance = startingBalance;
     }
 
-    private void setPincode(String pincode) {
-        this.pincode = pincode;
-    }
 
-    public String getPincode() {
-        return pincode;
-    }
+
 
     public void authenticate(String paramPincode) {
             if(!pincode.equals(paramPincode)) {

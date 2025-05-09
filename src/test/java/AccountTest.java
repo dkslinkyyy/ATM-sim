@@ -2,7 +2,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.fredaw.tdd.atmsim.Object.Account;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AccountTest {
@@ -10,7 +9,7 @@ public class AccountTest {
     private Account account;
     @BeforeEach
     void setup() {
-        account = new Account("1234");
+        account = new Account("1234", startingBalance);
         account.authenticate("1234");
     }
 

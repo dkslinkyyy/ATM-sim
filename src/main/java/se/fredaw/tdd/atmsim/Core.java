@@ -2,7 +2,10 @@ package se.fredaw.tdd.atmsim;
 
 import se.fredaw.tdd.atmsim.Object.ATMService;
 import se.fredaw.tdd.atmsim.Object.Account;
+import se.fredaw.tdd.atmsim.Object.Bank;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Core {
@@ -11,8 +14,15 @@ public class Core {
 
         ATMService atmService = new ATMService();
 
+        //Skapa en lista med banker som man kan välja
+        List<Bank> banks = new ArrayList<>();
+
+        banks.add(new Bank("SwedBank", "5555", 1000));
+        banks.add(new Bank("HandelsBanken", "5555", 1000));
+        banks.add(new Bank("Nordea", "5555", 1000));
+
         //Create an account with a specific pin
-        Account acc = new Account("0000");
+        Account acc = new Account("0000", startingBalance);
         Scanner scanner = new Scanner(System.in);
         acc.setBalance(1000);
 
