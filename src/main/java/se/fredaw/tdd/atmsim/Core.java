@@ -1,8 +1,8 @@
 package se.fredaw.tdd.atmsim;
 
-import se.fredaw.tdd.atmsim.Object.ATMService;
-import se.fredaw.tdd.atmsim.Object.Account;
-import se.fredaw.tdd.atmsim.Object.Bank;
+import se.fredaw.tdd.atmsim.atm.ATMService;
+import se.fredaw.tdd.atmsim.bank.Account;
+import se.fredaw.tdd.atmsim.bank.Bank;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ public class Core {
     public static void main(String[] args) {
 
         ATMService atmService = new ATMService();
+
 
         //Skapa en lista med banker som man kan välja
         List<Bank> banks = new ArrayList<>();
@@ -26,7 +27,7 @@ public class Core {
         Scanner scanner = new Scanner(System.in);
         acc.setBalance(1000);
 
-        //Meny that will apear if the user is correct
+        //Meny that will appear if the user is correct
         boolean isRunning = true;
 
         boolean isAuthenticated = true;

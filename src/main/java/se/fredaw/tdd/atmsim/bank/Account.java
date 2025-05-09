@@ -1,4 +1,4 @@
-package se.fredaw.tdd.atmsim.Object;
+package se.fredaw.tdd.atmsim.bank;
 
 public class Account {
 

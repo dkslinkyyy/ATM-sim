@@ -1,10 +1,15 @@
-package se.fredaw.tdd.atmsim.Object;
+package se.fredaw.tdd.atmsim.atm;
+
+import se.fredaw.tdd.atmsim.bank.Account;
 
 public class ATMService {
 
     public void printBalance(Account account){
         System.out.println("Balance: " + account.getBalance());
     }
+
+    //ATM -> Kollar om pengar finns på kontot
+    //ATM ->
 
     //  Simple Function to remove money
     public void withdraw(Account account,  int withdrawAmount){
