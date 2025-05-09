@@ -1,6 +1,7 @@
 package se.fredaw.tdd.atmsim;
 
 import se.fredaw.tdd.atmsim.atm.ATMService;
+import se.fredaw.tdd.atmsim.auth.Authenticator;
 import se.fredaw.tdd.atmsim.bank.Account;
 import se.fredaw.tdd.atmsim.bank.Bank;
 
@@ -26,6 +27,10 @@ public class Core {
         Account acc = new Account("abc1234", "1234", 0000);
         Scanner scanner = new Scanner(System.in);
         acc.setBalance(1000);
+
+
+        Authenticator authenticator = new Authenticator(new Bank("SEB", "5555", 1000));
+
 
         //Meny that will appear if the user is correct
         boolean isRunning = true;
