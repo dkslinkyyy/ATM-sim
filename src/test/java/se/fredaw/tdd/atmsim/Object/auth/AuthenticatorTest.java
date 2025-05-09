@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.fredaw.tdd.atmsim.Object.Account;
 
+import java.net.Authenticator;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,18 +22,15 @@ public class AuthenticatorTest {
     @Test
     void testAuthenticationSuccess() {
         Account account = new Account("abc123", "1234");
-        boolean result = authenticator.attempt("abc123", "1234",
-                (acc, pin) -> acc.getPin().equals(pin));
-        assertTrue(result);
+
+        assertTrue(authenticator.attempt("abc123", "1234"));
     }
 
 
     @Test
     public void testAuthenticationFailsWithWrongPin() {
         Account account = new Account("abc123", "4321");
-        boolean result = authenticator.attempt("abc123", "1234",
-                (acc, pin) -> acc.getPin().equals(pin));
 
-        assertFalse(result);
+        assertFalse(authenticator.attempt("abc123", "12345"));
     }
 }
