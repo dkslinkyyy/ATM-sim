@@ -4,35 +4,17 @@ import java.util.Scanner;
 
 public class Account {
 
-
-
+    private final String accountId;
 
     private int balance;
-
-    private String pincode;
+    private final String pincode;
     private boolean authenticated = false;
 
-    public Account(String paramPincode) {
+    public Account(String accountId, String paramPincode) {
+        this.accountId = accountId;
         this.pincode = paramPincode;
     }
 
-    private void setPincode(String pincode) {
-        this.pincode = pincode;
-    }
-
-    public String getPincode() {
-        return pincode;
-    }
-
-    public void authenticate(String paramPincode) {
-            if(!pincode.equals(paramPincode)) {
-                this.authenticated = false;
-            }
-            else{
-                this.authenticated = true;
-            }
-
-    }
 
     public boolean attemptTransaction(TransactionType transactionType, int amount ){
         switch (transactionType){
@@ -47,17 +29,21 @@ public class Account {
         return false;
     }
 
+    public String getPincode() {
+        return pincode;
+    }
 
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public boolean checkPin(String inputPin) {
+        return this.pincode.equals(inputPin);
+    }
     @Override
     public String toString() {
         return "Your remaining balance is: " + balance;
     }
-
-    public boolean isAuthenticated() {
-        return authenticated;
-    }
-
-
 
     public void setBalance(int balance) {
         this.balance = balance;
