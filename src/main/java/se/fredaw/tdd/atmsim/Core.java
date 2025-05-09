@@ -63,26 +63,26 @@ public class Core {
                     System.out.println("Enter the amount to withdraw");
                     scanner.nextLine();
                     int amountToWithdraw = scanner.nextInt();
-                    if(acc.attemptTransaction(Account.TransactionType.WITHDRAW, amountToWithdraw)) {
+                    try{
                         atmService.withdraw(acc, amountToWithdraw);
-                        System.out.println("Amount withdrawn: " + amountToWithdraw);
                         System.out.println(acc);
-                    }else {
-                        System.out.println("Insufficient funds");
                     }
-
+                    catch (IllegalArgumentException e){
+                        System.out.println("The withdraw failed due to an error" + " " + e.getMessage());
+                    }
                     break;
                 case 2:
                     System.out.println();
                     System.out.println("Enter the amount to deposit");
                     scanner.nextLine();
                     int amountToDeposit = scanner.nextInt();
-                    if(acc.attemptTransaction(Account.TransactionType.DEPOSIT, amountToDeposit)) {
+                    try{
                         atmService.deposit(acc, amountToDeposit);
-                        System.out.println("Amount deposited: " + amountToDeposit);
                         System.out.println(acc);
                     }
-                    break;
+                    catch (IllegalArgumentException e){
+                        System.out.println("The deposit failed due to an error" + e.getMessage());
+                    }
 
                 case 3:
                     isRunning = false;

@@ -8,36 +8,24 @@ public class ATMService {
         System.out.println("Balance: " + account.getBalance());
     }
 
-    //ATM -> Kollar om pengar finns på kontot
-    //ATM ->
-
-    //  Simple Function to remove money
-    public void withdraw(Account account,  int withdrawAmount){
-        if(withdrawAmount <= 0){
-            throw new IllegalArgumentException("Amount must be positive"); 
-            
+    public void withdraw(Account account, int amount){
+        try {
+            account.withdraw(amount);
+            System.out.println("Amount withdrawn: " + amount);
         }
-
-        //make account balance transaction
-        account.setBalance(account.getBalance() - withdrawAmount);
-
-
+        catch (IllegalArgumentException e){
+            System.out.println("The withdraw failed due to an error" + e.getMessage());
+        }
     }
 
-
-
-    // Simple Function to add money
-    public void deposit(Account account, int depositAmount){
-        if(depositAmount<= 0){
-            throw new IllegalArgumentException("Amount must be positive");
-
+    public void deposit (Account account, int amount ){
+        try{
+            account.deposit(amount);
+            System.out.println("Amount deposited: " + amount);
         }
-
-        account.setBalance(account.getBalance() + depositAmount);
-        System.out.println("Succesfull deposit" + depositAmount);
-
-
+        catch (IllegalArgumentException e){
+            System.out.println("The deposit failed due to an error" + e.getMessage());
+        }
     }
-
 
 }

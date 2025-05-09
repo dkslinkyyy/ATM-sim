@@ -22,18 +22,33 @@ public class Account {
             }
     }
 
-    public boolean attemptTransaction(TransactionType transactionType, int amount ){
-        switch (transactionType){
-            case WITHDRAW:
-                if(getBalance() < amount){
-                    return false;
-                }
-                return true;
-            case DEPOSIT:
-                return true;
+
+    public void withdraw(int withdrawAmount){
+        if (withdrawAmount <= 0){
+            throw new IllegalArgumentException(" Amount must be positive");
         }
-        return false;
+
+        if(withdrawAmount > balance){
+            throw new IllegalArgumentException(" Insufficient funds");
+        }
+
+        balance -= withdrawAmount;
+
     }
+
+    // Simple Function to add money
+    public void  deposit(int depositAmount){
+        if(depositAmount<= 0){
+            throw new IllegalArgumentException("Amount must be positive");
+
+        }
+
+        System.out.println("Succesfull deposit" + depositAmount);
+
+        balance += depositAmount;
+
+    }
+
 
 
     @Override
@@ -53,6 +68,7 @@ public class Account {
     public int getBalance() {
         return balance;
     }
+
     public enum TransactionType {
         WITHDRAW, DEPOSIT;
     }
