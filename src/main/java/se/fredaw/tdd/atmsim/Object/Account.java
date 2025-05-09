@@ -3,20 +3,15 @@ package se.fredaw.tdd.atmsim.Object;
 public class Account {
 
 
-
-
-
-
     private int balance;
+    private String pincode;
+    private boolean authenticated;
 
-
-    public Account(int balance, String pincode, int startingBalance) {
-
+    public Account(String pincode, int startingBalance) {
+        this.pincode = pincode;
+        this.authenticated = false;
         this.balance = startingBalance;
     }
-
-
-
 
     public void authenticate(String paramPincode) {
             if(!pincode.equals(paramPincode)) {
@@ -25,7 +20,6 @@ public class Account {
             else{
                 this.authenticated = true;
             }
-
     }
 
     public boolean attemptTransaction(TransactionType transactionType, int amount ){

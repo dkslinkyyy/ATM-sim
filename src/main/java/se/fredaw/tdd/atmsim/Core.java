@@ -22,7 +22,7 @@ public class Core {
         banks.add(new Bank("Nordea", "5555", 1000));
 
         //Create an account with a specific pin
-        Account acc = new Account("0000", startingBalance);
+        Account acc = new Account("0000", 1000);
         Scanner scanner = new Scanner(System.in);
         acc.setBalance(1000);
 
@@ -51,9 +51,6 @@ public class Core {
         }
 
         while (isRunning){
-
-
-
             System.out.println();
             System.out.println("1. Withdraw");
             System.out.println("2. Deposit");
