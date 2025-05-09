@@ -4,73 +4,49 @@ public class Account {
     private final String accountId;
     private int balance;
     private String pincode;
-    private boolean authenticated;
 
     public Account(String accountId, String pincode, int startingBalance) {
         this.accountId = accountId;
         this.pincode = pincode;
-        this.authenticated = false;
         this.balance = startingBalance;
     }
 
-    public void authenticate(String paramPincode) {
-            if(!pincode.equals(paramPincode)) {
-                this.authenticated = false;
-            }
-            else{
-                this.authenticated = true;
-            }
-    }
-
-
-    public void withdraw(int withdrawAmount){
-        if (withdrawAmount <= 0){
+    public void withdraw(int withdrawAmount) {
+        if (withdrawAmount <= 0) {
             throw new IllegalArgumentException(" Amount must be positive");
         }
 
-        if(withdrawAmount > balance){
+        if (withdrawAmount > balance) {
             throw new IllegalArgumentException(" Insufficient funds");
         }
 
-        balance -= withdrawAmount;
-
+        setBalance(getBalance() - withdrawAmount);
     }
 
     // Simple Function to add money
-    public void  deposit(int depositAmount){
-        if(depositAmount<= 0){
+    public void deposit(int depositAmount) {
+        if (depositAmount <= 0) {
             throw new IllegalArgumentException("Amount must be positive");
 
         }
 
-        System.out.println("Succesfull deposit" + depositAmount);
-
-        balance += depositAmount;
-
+        setBalance(getBalance() + depositAmount);
     }
-
-
-
-    @Override
-    public String toString() {
-        return "Your remaining balance is: " + balance;
-    }
-
-    public boolean isAuthenticated() {
-        return authenticated;
-    }
-
 
     public void setBalance(int balance) {
         this.balance = balance;
-
     }
+
     public int getBalance() {
         return balance;
     }
 
-    public enum TransactionType {
-        WITHDRAW, DEPOSIT;
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public boolean checkPin(String inputPin) {
+        return this.pincode.equals(inputPin);
     }
 }
 

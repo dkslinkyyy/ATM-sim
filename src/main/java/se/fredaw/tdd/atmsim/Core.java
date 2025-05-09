@@ -30,27 +30,6 @@ public class Core {
         //Meny that will appear if the user is correct
         boolean isRunning = true;
 
-//        boolean isAuthenticated = true;
-//
-//        while (isAuthenticated){
-//            System.out.println();
-//            System.out.println("Enter your pincode");
-//            String pincode = scanner.nextLine();
-//            acc.authenticate(pincode);
-//
-//            if(acc.isAuthenticated()) {
-//                isAuthenticated = false;
-//                System.out.println();
-//                System.out.println("Authenticated is successful");
-//            }
-//
-//            else{
-//                System.out.println();
-//                System.out.println("Authentication failed");
-//                System.out.println("Please try again");
-//            }
-//        }
-
         while (isRunning){
             System.out.println();
             System.out.println("1. Withdraw");

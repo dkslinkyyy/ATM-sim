@@ -1,8 +1,7 @@
-package se.fredaw.tdd.atmsim.Object;
+package se.fredaw.tdd.atmsim.atm;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import se.fredaw.tdd.atmsim.atm.ATMService;
 import se.fredaw.tdd.atmsim.bank.Account;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

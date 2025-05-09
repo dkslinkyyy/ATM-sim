@@ -1,10 +1,9 @@
-package se.fredaw.tdd.atmsim.Object.auth;
+package se.fredaw.tdd.atmsim.auth;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import se.fredaw.tdd.atmsim.AccountRepository;
-import se.fredaw.tdd.atmsim.Object.Account;
-import se.fredaw.tdd.atmsim.auth.Authenticator;
+import se.fredaw.tdd.atmsim.bank.Account;
+import se.fredaw.tdd.atmsim.bank.AccountRepository;
 
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -27,6 +26,11 @@ public class AuthenticatorTest {
                 return storedAccount;
             }
             return null;
+        }
+
+        @Override
+        public boolean doesAccountExist(String accountId) {
+            return false;
         }
     }
     private TestAccountRepository testRepo;

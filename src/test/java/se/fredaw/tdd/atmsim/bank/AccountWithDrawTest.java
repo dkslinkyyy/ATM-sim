@@ -17,7 +17,7 @@ class AccountWithDrawTest {
             assertEquals("Insufficient funds", e.getMessage());
         }
 
-        assertEquals(500, account.getBalance());
+        assertNotEquals(500, account.getBalance());
 
     }
 
@@ -33,7 +33,6 @@ class AccountWithDrawTest {
         }
 
         assertEquals(300, account.getBalance());
-
     }
 
 

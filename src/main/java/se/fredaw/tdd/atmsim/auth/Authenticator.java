@@ -1,7 +1,9 @@
 package se.fredaw.tdd.atmsim.auth;
 
-import se.fredaw.tdd.atmsim.AccountRepository;
-import se.fredaw.tdd.atmsim.Object.Account;
+import se.fredaw.tdd.atmsim.bank.AccountRepository;
+
+import se.fredaw.tdd.atmsim.bank.Account;
+
 
 public class Authenticator {
     private final AccountRepository repository;
