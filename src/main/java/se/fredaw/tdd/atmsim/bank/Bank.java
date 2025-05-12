@@ -1,11 +1,13 @@
 package se.fredaw.tdd.atmsim.bank;
 
-import java.util.ArrayList;
-import java.util.List;
+import se.fredaw.tdd.atmsim.repository.AccountRepository;
 
-public class Bank {
+import java.util.HashMap;
+import java.util.Map;
+
+public class Bank implements AccountRepository {
     private final String name;
-    private final List<Account> accounts = new ArrayList<>();
+    private final Map<String, Account> accounts = new HashMap<>();
 
 
     public Bank(String name) {
@@ -17,23 +19,5 @@ public class Bank {
         return name;
     }
 
-    //Method for adding an account to the bank
-    public void addAccount(Account account){
-        accounts.add(account);
-    }
-
-    public List<Account> getAccounts(){
-        return accounts;
-    }
-
-    //Method for seeing if you can find the account in the List
-    public Account findAccountbyId(String accountId){
-        for (Account account : accounts){
-            if (account.getAccountId().equals(accountId)){
-                return account;
-            }
-        }
-        return null;
-    }
 
 }
