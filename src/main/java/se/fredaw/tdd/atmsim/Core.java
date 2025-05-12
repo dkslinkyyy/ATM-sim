@@ -53,17 +53,30 @@ public class Core {
         Account chosenAccount = accounts.get(accountChoice);
 
         //Log in with your PINCODE
-        scanner.nextLine();
-        System.out.println("Log in with your PINCODE");
-        String pincode = scanner.nextLine();
+        int authAttempts = 3;
+        String pincode = "";
+        pincode = scanner.nextLine();
+        while (authAttempts > 0) {
+            System.out.println("Log in with your PINCODE:");
+            pincode = scanner.nextLine();
 
-        if (!chosenAccount.checkPin(pincode)){
-            System.out.println("Wrong PINCODE");
-            System.out.println();
-            System.out.println();
-            System.out.println("EXITING");
-            return;
+            if (chosenAccount.checkPin(pincode)) {
+                System.out.println("PIN correct");
+                break;
+            } else {
+                authAttempts--;
+                if (authAttempts == 0) {
+                    System.out.println("\nToo many failed attempts.");
+                    System.out.println("EXITING");
+                    break;
+                }
+                System.out.println("Wrong pincode. Attempts left: " + authAttempts);
+
+            }
         }
+
+        //Avbryt programmet
+        if(!chosenAccount.checkPin(pincode)) return;
 
 
 
