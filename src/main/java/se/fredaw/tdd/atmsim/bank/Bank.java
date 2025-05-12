@@ -20,4 +20,23 @@ public class Bank {
         return name;
     }
 
+    //Method for adding an account to the bank
+    public void addAccount(Account account){
+        accounts.add(account);
+    }
+
+    public List<Account> getAccountsInBank(){
+        return accounts;
+    }
+
+    //Method for seeing if you can find the account in the List
+    public Account findAccountbyId(String accountId){
+        for (Account account : accounts){
+            if (account.getAccountId().equals(accountId)){
+                return account;
+            }
+        }
+        return null;
+    }
+
 }

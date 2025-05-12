@@ -13,12 +13,11 @@ public class BankTest {
         bank.addAccount(account1);
         bank.addAccount(account2);
 
-        assertEquals(2, bank.getAccounts().size());
-        assertEquals(account1, bank.getAccounts().get(0));
-        assertEquals(account2, bank.getAccounts().get("id2"));
+        //Check if the bank has 2 accounts or not
+        assertEquals(2, bank.getAccountsInBank().size());
+        assertEquals(account1, bank.findAccountbyId("person1"));
+        assertEquals(account2, bank.findAccountbyId("person2"));
     }
-
-
 
 
 }
