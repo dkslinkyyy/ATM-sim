@@ -8,12 +8,9 @@ public class Bank {
     private final List<Account> accounts = new ArrayList<>();
 
 
-    public Bank(String name, String pin, int startingBalance) {
+    public Bank(String name) {
         this.name = name;
-    }
 
-    public Bank(String testbank) {
-        this.name = testbank;
     }
 
     public String getName() {
@@ -25,7 +22,7 @@ public class Bank {
         accounts.add(account);
     }
 
-    public List<Account> getAccountsInBank(){
+    public List<Account> getAccounts(){
         return accounts;
     }
 

@@ -14,9 +14,19 @@ public class BankTest {
         bank.addAccount(account2);
 
         //Check if the bank has 2 accounts or not
-        assertEquals(2, bank.getAccountsInBank().size());
+        assertEquals(2, bank.getAccounts().size());
         assertEquals(account1, bank.findAccountbyId("person1"));
         assertEquals(account2, bank.findAccountbyId("person2"));
+    }
+
+    @Test
+    void shouldReturnNullBecauseTheAccountDoesntExistInTheList(){
+        Bank bank = new Bank("Testbank");
+        bank.addAccount(new Account("person1", "1234", 1000));
+
+        //Try to see if you can find a account or not
+        assertNull(bank.findAccountbyId("person2"));
+
     }
 
 

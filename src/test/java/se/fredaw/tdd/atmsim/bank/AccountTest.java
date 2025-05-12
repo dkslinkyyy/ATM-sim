@@ -6,17 +6,10 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AccountTest {
-    @BeforeEach
-    void setUp(){
-        Account account = new Account("abc1234", "1234", 1000);
-    }
 
-    //1: Uttag med giltigt belopp
-    //2 Uttag med för stort belopp
-    //3 Uttag med 0 pengar på kontot
-    //4 Uttag med negativt belopp
 
     @Test
     void shouldWithDrawalTheMoneyAndBalanceShouldDecrease() {
@@ -27,12 +20,20 @@ class AccountTest {
     }
 
     @Test
-    void deposit() {
+    void withDrawalOfNegativeAmountShouldThrowException(){
+        Account account = new Account("abc1234", "1234", 1000);
+        assertThrows(IllegalArgumentException.class, () -> account.withdraw(1200) );
+    }
+
+    @Test
+    void shouldDepositTheMoneyAndBalanceShouldIncrease() {
         Account account = new Account("abc1234", "1234", 1000);
         account.deposit(200);
 
         assertEquals(1200, account.getBalance());
     }
+
+
 
     @Test
     void shouldRecordTheTranssationHistoryAndReturnIt(){
