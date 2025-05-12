@@ -1,4 +1,4 @@
 package se.fredaw.tdd.atmsim.repository;
 
-public class UserRepository {
+public class UserRepositoryTest {
 }
