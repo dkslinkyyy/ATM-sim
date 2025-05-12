@@ -10,8 +10,10 @@ public class Bank {
 
     public Bank(String name, String pin, int startingBalance) {
         this.name = name;
+    }
 
-
+    public Bank(String testbank) {
+        this.name = testbank;
     }
 
     public String getName() {
