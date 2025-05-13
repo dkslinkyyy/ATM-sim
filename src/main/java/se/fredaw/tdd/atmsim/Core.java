@@ -3,127 +3,129 @@ package se.fredaw.tdd.atmsim;
 import se.fredaw.tdd.atmsim.atm.ATMService;
 import se.fredaw.tdd.atmsim.bank.Account;
 import se.fredaw.tdd.atmsim.bank.Bank;
-
-import java.util.ArrayList;
+import se.fredaw.tdd.atmsim.bank.User;
+import se.fredaw.tdd.atmsim.repository.UserRepository;
 import java.util.List;
 import java.util.Scanner;
 
 public class Core {
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ATMService atmService = new ATMService();
+        UserRepository userRepoSwed = new UserRepository();
+        UserRepository userRepoNord = new UserRepository();
 
-        //Create a list of Bank that will store stuff
-        List<Bank> banks = new ArrayList<>();
+        // Create banks and users
+        Bank swedbank = new Bank("Swedbank", userRepoSwed);
+        User user1 = new User("123", "Dawid");
+        user1.addAccount(new Account("acc-001", "666", 377));
+        swedbank.addUser(user1);
 
-        //Adding a Bank called Swedbank
-        Bank swedbank = new Bank("Swedbank");
-        swedbank.addAccount(new Account("Transsaction", "666", 666));
-        swedbank.addAccount(new Account("Saving-Account", "666", 377));
+        Bank nordea = new Bank("Nordea", userRepoNord);
+        User user2 = new User("500", "Fredrik");
+        user2.addAccount(new Account("acc-002", "500", 5000));
+        user2.addAccount(new Account("acc-003", "500", 6000));
+        nordea.addUser(user2);
 
-        //Adding more banks
-        Bank nordea = new Bank("Nordea");
-        nordea.addAccount(new Account("Transsaction", "500", 5000));
-        nordea.addAccount(new Account("Saving-Account","500", 6000));
+        List<Bank> banks = List.of(swedbank,  nordea);
 
-        //Adding the banks to the list
-        banks.add(swedbank);
-        banks.add(nordea);
-
-        //Choose your bank
-        System.out.println("Choose your bank");
-        for (int i = 0; i < banks.size(); i++){
-            System.out.println((i+1) + ". " + banks.get(i).getName());
-
+        // Choose bank
+        System.out.println("Choose your bank:");
+        for (int i = 0; i < banks.size(); i++) {
+            System.out.println((i + 1) + ". " + banks.get(i).getName());
         }
-        System.out.println();
         System.out.print("Ditt val: ");
-        int bankChoice = scanner.nextInt() -1;
+        int bankChoice = scanner.nextInt() - 1;
         Bank chosenBank = banks.get(bankChoice);
 
-        //Write the account from the chosen bank
-        System.out.println("Account in: " + chosenBank.getName());
-        List<Account> accounts = chosenBank.getAccounts();
+        scanner.nextLine(); // consume newline
 
-        for (int i = 0; i < accounts.size(); i++){
-            System.out.println((i+1) + ". Account ID: " + accounts.get(i).getAccountId());
+        // Login user
+        System.out.print("Enter your user ID: ");
+        String userId = scanner.nextLine();
+        User user = chosenBank.getUserById(userId);
+
+        if (user == null) {
+            System.out.println("User not found. Exiting.");
+            return;
         }
-        int accountChoice = scanner.nextInt() -1;
+
+        // Select account
+        List<Account> accounts = user.getAccounts();
+        if (accounts.isEmpty()) {
+            System.out.println("No accounts found for user.");
+            return;
+        }
+
+        System.out.println("Available accounts:");
+        for (int i = 0; i < accounts.size(); i++) {
+            System.out.println((i + 1) + ". Account ID: " + accounts.get(i).getAccountId());
+        }
+        System.out.print("Choose an account: ");
+        int accountChoice = scanner.nextInt() - 1;
+        scanner.nextLine();
         Account chosenAccount = accounts.get(accountChoice);
 
-        //Log in with your PINCODE
-        int authAttempts = 3;
-        String pincode = "";
-        pincode = scanner.nextLine();
-        while (authAttempts > 0) {
-            System.out.println("Log in with your PINCODE:");
-            pincode = scanner.nextLine();
-
-            if (chosenAccount.checkPin(pincode)) {
-                System.out.println("PIN correct");
+        // Authenticate with PIN
+        int attempts = 3;
+        while (attempts > 0) {
+            System.out.print("Enter PIN: ");
+            String pin = scanner.nextLine();
+            if (chosenAccount.checkPin(pin)) {
+                System.out.println("Authentication successful.");
                 break;
             } else {
-                authAttempts--;
-                if (authAttempts == 0) {
-                    System.out.println("\nToo many failed attempts.");
-                    System.out.println("EXITING");
-                    break;
+                attempts--;
+                if (attempts == 0) {
+                    System.out.println("Too many failed attempts. Exiting.");
+                    return;
                 }
-                System.out.println("Wrong pincode. Attempts left: " + authAttempts);
-
+                System.out.println("Wrong PIN. Attempts left: " + attempts);
             }
         }
 
-        //Avbryt programmet
-        if(!chosenAccount.checkPin(pincode)) return;
 
-
-
+        // Main menu
         boolean isRunning = true;
-        while (isRunning){
-            System.out.println();
-            System.out.println("1. Withdraw");
-            System.out.println("2. Deposit");
-            System.out.println("3. Print the balance");
-            System.out.println();
-            System.out.print("Ditt val: ");
+        while (isRunning) {
+            System.out.println("\n1. Withdraw\n2. Deposit\n3. Print balance\n4. Transaction history\n5. Exit");
+            System.out.print("Your choice: ");
             int choice = scanner.nextInt();
-            switch (choice){
-                case 1 ->{
-                    System.out.println();
-                    System.out.println("Enter the amount to withdraw");
-                    scanner.nextLine();
-                    int amountToWithdraw = scanner.nextInt();
-                    atmService.withdraw(chosenAccount, amountToWithdraw);
 
+            switch (choice) {
+                case 1 -> {
+                    System.out.print("Enter amount to withdraw: ");
+                    int amount = scanner.nextInt();
+                    scanner.nextLine();
+                    try {
+                        atmService.withdraw(chosenBank, chosenAccount, amount);
+                        System.out.println("Withdrawal successful.");
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
                 }
                 case 2 -> {
-                    System.out.println();
-                    System.out.println("Enter the amount to deposit");
+                    System.out.print("Enter amount to deposit: ");
+                    int amount = scanner.nextInt();
                     scanner.nextLine();
-                    int amountToDeposit = scanner.nextInt();
-                    atmService.deposit(chosenAccount, amountToDeposit);
-
-
+                    try {
+                        atmService.deposit(chosenBank, chosenAccount, amount);
+                        System.out.println("Deposit successful.");
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
                 }
-                case 3 -> {
-                    System.out.println();
-                    System.out.println("Printing the balance");
-                    System.out.println();
-                    System.out.println();
-                    atmService.printBalance(chosenAccount);
-
-                }
-
+                case 3 -> atmService.printBalance(chosenAccount);
                 case 4 -> {
-                    System.out.println("Exiting");
+                    System.out.println("Transaction history:");
+                    chosenAccount.getTransactions().forEach(System.out::println);
+                }
+                case 5 -> {
+                    System.out.println("Goodbye.");
                     isRunning = false;
                 }
-
+                default -> System.out.println("Invalid option.");
             }
         }
-
     }
-
 }

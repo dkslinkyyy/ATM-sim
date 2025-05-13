@@ -1,7 +1,8 @@
 package se.fredaw.tdd.atmsim.bank;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import se.fredaw.tdd.atmsim.bank.transaction.Transaction;
+import se.fredaw.tdd.atmsim.bank.transaction.TransactionType;
 
 import java.util.List;
 
@@ -47,11 +48,11 @@ class AccountTest {
 
 
         //Check the history of deposit
-        assertEquals(Transaction.Type.DEPOSIT, accountHistory.get(0).getType());
+        assertEquals(TransactionType.DEPOSIT, accountHistory.get(0).getType());
         assertEquals(300, accountHistory.get(0).getAmount());
 
         //Check the history of withdraw
-        assertEquals(Transaction.Type.WITHDRAWAL, accountHistory.get(1).getType());
+        assertEquals(TransactionType.WITHDRAW, accountHistory.get(1).getType());
         assertEquals(500, accountHistory.get(1).getAmount());
 
 

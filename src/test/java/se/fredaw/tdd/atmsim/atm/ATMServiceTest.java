@@ -2,61 +2,55 @@ package se.fredaw.tdd.atmsim.atm;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import se.fredaw.tdd.atmsim.bank.Account;
+import se.fredaw.tdd.atmsim.bank.*;
+import se.fredaw.tdd.atmsim.repository.UserRepository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ATMServiceTest {
 
   private ATMService atmService;
   private Account account;
+  private Bank bank;
 
-
-
-  // When the test is started, the balance is set to 1000
   @BeforeEach
-    void setup() {
-      atmService = new ATMService();
-      account = new Account("abc1234", "0000", 1000);
-
-
+  void setUp() {
+    atmService = new ATMService();
+    UserRepository userRepository = new UserRepository();
+    account = new Account("acc001", "1234", 1000);
+    bank = new Bank("Swedbank", userRepository);
   }
 
-@Test
-void insufficientBalanceTest() {
-    atmService.withdraw(account, 2001);
-    assertEquals(1000, account.getBalance());
-}
-
-
-//  @Test
-//  void shouldAuthenticateWithCorrectPin() {
-//
-//    account.authenticate("0000");
-//
-//    assertTrue(account.isAuthenticated());
-//  }
-
-  //Here we test if the withdrawl function is correct
   @Test
-    void withdrawTestandAuthenticate() {
-//    account.authenticate("0000");
-    atmService.withdraw(account, 500);
-    assertEquals(500, account.getBalance());
-
-
-
+  void testWithdrawValidAmount() {
+    atmService.withdraw(bank, account, 200);
+    assertEquals(800, account.getBalance());
   }
 
-  //Here we try to add money to the account
   @Test
-    void depositTestandAuthenticate(){
-//    account.authenticate("0000");
-//    assertTrue(account.isAuthenticated());
-    atmService.deposit(account, 500);
-    assertEquals(1500, account.getBalance());
+  void testWithdrawInvalidAmount() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      atmService.withdraw(bank, account, -100);
+    });
   }
 
+  @Test
+  void testWithdrawTooMuch() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      atmService.withdraw(bank, account, 1500);
+    });
+  }
 
+  @Test
+  void testDepositValidAmount() {
+    atmService.deposit(bank, account, 300);
+    assertEquals(1300, account.getBalance());
+  }
+
+  @Test
+  void testDepositInvalidAmount() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      atmService.deposit(bank, account, 0);
+    });
+  }
 }

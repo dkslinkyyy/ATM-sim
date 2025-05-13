@@ -1,39 +1,60 @@
 package se.fredaw.tdd.atmsim.bank;
 
-import java.util.ArrayList;
-import java.util.List;
+import se.fredaw.tdd.atmsim.bank.transaction.Transaction;
+import se.fredaw.tdd.atmsim.bank.transaction.TransactionRequest;
+import se.fredaw.tdd.atmsim.bank.transaction.TransactionType;
+import se.fredaw.tdd.atmsim.repository.UserRepository;
 
-public class Bank {
+public class Bank implements BankService{
     private final String name;
-    private final List<Account> accounts = new ArrayList<>();
+    private final UserRepository userRepository;
 
-
-    public Bank(String name) {
+    public Bank(String name, UserRepository userRepository) {
         this.name = name;
-
+        this.userRepository = userRepository;
     }
 
     public String getName() {
         return name;
     }
 
-    //Method for adding an account to the bank
-    public void addAccount(Account account){
-        accounts.add(account);
+    public UserRepository getUserRepository() {
+        return userRepository;
     }
 
-    public List<Account> getAccounts(){
-        return accounts;
+    public void addUser(User user) {
+        userRepository.save(user);
     }
 
-    //Method for seeing if you can find the account in the List
-    public Account findAccountbyId(String accountId){
-        for (Account account : accounts){
-            if (account.getAccountId().equals(accountId)){
-                return account;
+    public User getUserById(String userId) {
+        return userRepository.findById(userId);
+    }
+
+    @Override
+    public void attemptTransaction(TransactionRequest request) {
+        Account account = request.getAccount();
+        int amount = request.getAmount();
+        TransactionType type = request.getType();
+
+        switch (type) {
+            case WITHDRAW -> {
+                if (amount <= 0) {
+                    throw new IllegalArgumentException("Amount must be greater than 0");
+                }
+                if (account.getBalance() < amount) {
+                    throw new IllegalArgumentException("Insufficient balance");
+                }
+                account.setBalance(account.getBalance() - amount);
+                account.addTransaction(new Transaction(type, amount));
+            }
+            case DEPOSIT -> {
+                if (amount <= 0) {
+                    throw new IllegalArgumentException("Amount must be greater than 0");
+                }
+                account.setBalance(account.getBalance() + amount);
+                account.addTransaction(new Transaction(type, amount));
+
             }
         }
-        return null;
     }
-
 }
