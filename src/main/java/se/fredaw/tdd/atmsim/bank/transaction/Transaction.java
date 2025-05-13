@@ -1,21 +1,21 @@
-package se.fredaw.tdd.atmsim.bank;
+package se.fredaw.tdd.atmsim.bank.transaction;
 
 import java.time.LocalDateTime;
 
 public class Transaction {
-    public enum Type {DEPOSIT, WITHDRAWAL}
+    private TransactionType transactionType;
 
-    private final Type type;
+    private final TransactionType type;
     private final int amount;
     private final LocalDateTime time;
 
-    public Transaction(Type type, int amount) {
+    public Transaction(TransactionType type, int amount) {
         this.type = type;
         this.amount = amount;
         this.time = LocalDateTime.now();
     }
 
-    public Type getType() {
+    public TransactionType getType() {
         return type;
     }
 

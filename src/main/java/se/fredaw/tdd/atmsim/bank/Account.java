@@ -1,5 +1,7 @@
 package se.fredaw.tdd.atmsim.bank;
 
+import se.fredaw.tdd.atmsim.bank.transaction.Transaction;
+
 import java.util.ArrayList;
 import java.util.List;
 
