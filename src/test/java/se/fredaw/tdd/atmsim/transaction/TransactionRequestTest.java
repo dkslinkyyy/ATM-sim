@@ -1,4 +1,23 @@
-package se.fredaw.tdd.atmsim.transaction;
+package se.fredaw.tdd.atmsim.bank;
 
-public class TransactionRequestTest {
+import org.junit.jupiter.api.Test;
+import se.fredaw.tdd.atmsim.bank.transaction.TransactionRequest;
+import se.fredaw.tdd.atmsim.bank.transaction.TransactionType;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class TransactionRequestTest {
+
+    @Test
+    void testTransactionRequestStoresValuesCorrectly() {
+        Account account = new Account("acc123", "1234", 1000);
+        int amount = 200;
+        TransactionType type = TransactionType.WITHDRAW;
+
+        TransactionRequest request = new TransactionRequest(account, amount, type);
+
+        assertEquals(account, request.getAccount());
+        assertEquals(amount, request.getAmount());
+        assertEquals(type, request.getType());
+    }
 }

@@ -1,6 +1,9 @@
 package se.fredaw.tdd.atmsim.atm;
 
 import se.fredaw.tdd.atmsim.bank.Account;
+import se.fredaw.tdd.atmsim.bank.BankService;
+import se.fredaw.tdd.atmsim.bank.transaction.TransactionRequest;
+import se.fredaw.tdd.atmsim.bank.transaction.TransactionType;
 
 public class ATMService {
 
@@ -8,24 +11,14 @@ public class ATMService {
         System.out.println("Balance: " + account.getBalance());
     }
 
-    public void withdraw(Account account, int amount){
-        try {
-            account.withdraw(amount);
-            System.out.println("Amount withdrawn: " + amount);
-        }
-        catch (IllegalArgumentException e){
-            System.out.println("The withdraw failed due to an error" + e.getMessage());
-        }
+    public void withdraw(BankService bankService, Account account, int amount) {
+        TransactionRequest request = new TransactionRequest(account, amount, TransactionType.WITHDRAW);
+        bankService.attemptTransaction(request);
     }
 
-    public void deposit (Account account, int amount ){
-        try{
-            account.deposit(amount);
-            System.out.println("Amount deposited: " + amount);
-        }
-        catch (IllegalArgumentException e){
-            System.out.println("The deposit failed due to an error" + e.getMessage());
-        }
+    public void deposit(BankService bankService, Account account, int amount) {
+        TransactionRequest request = new TransactionRequest(account, amount, TransactionType.DEPOSIT);
+        bankService.attemptTransaction(request);
     }
 
 }
