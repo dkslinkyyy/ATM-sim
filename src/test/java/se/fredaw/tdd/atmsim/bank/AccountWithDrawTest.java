@@ -47,5 +47,4 @@ class AccountWithDrawTest {
         assertEquals(300, account.getBalance());
     }
 
-
 }
