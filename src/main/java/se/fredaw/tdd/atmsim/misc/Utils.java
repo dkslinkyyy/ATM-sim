@@ -1,5 +1,6 @@
 package se.fredaw.tdd.atmsim.misc;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class Utils {
@@ -9,9 +10,11 @@ public class Utils {
         System.out.println(message.getColor().getColorCode() + message.getPlaceholder() + Color.RESET.getColorCode());
     }
 
-    public static void throwIf(boolean condition, Supplier<? extends RuntimeException> exceptionSupplier) {
-        if (condition) {
-            throw exceptionSupplier.get();
-        }
+    public static void throwWith(
+            Message message,
+            Function<String, ? extends RuntimeException> exceptionFactory
+    ) {
+        throw exceptionFactory.apply(message.getPlaceholder());
     }
+
 }

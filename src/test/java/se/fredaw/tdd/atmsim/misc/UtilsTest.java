@@ -1,9 +1,12 @@
 package se.fredaw.tdd.atmsim.misc;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UtilsTest {
+
     @Test
     void throwWith_shouldThrowGivenExceptionWithMessage() {
         // Arrange
@@ -26,6 +29,6 @@ public class UtilsTest {
                 () -> Utils.throwWith(msg, m -> new IllegalStateException("error: " + m))
         );
 
-        assertEquals("ATM Error: " + msg.getPlaceholder(), exception.getMessage());
+        assertEquals("error: " + msg.getPlaceholder(), exception.getMessage());
     }
 }
