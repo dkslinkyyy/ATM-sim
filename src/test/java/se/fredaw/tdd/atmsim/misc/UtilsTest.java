@@ -31,9 +31,4 @@ public class UtilsTest {
 
         assertEquals("error: " + msg.getPlaceholder(), exception.getMessage());
     }
-
-    @Test
-    void test() {
-        Message msg = Mes
-    }
 }
