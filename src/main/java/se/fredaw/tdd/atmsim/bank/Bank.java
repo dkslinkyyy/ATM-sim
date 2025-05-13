@@ -3,6 +3,8 @@ package se.fredaw.tdd.atmsim.bank;
 import se.fredaw.tdd.atmsim.bank.transaction.Transaction;
 import se.fredaw.tdd.atmsim.bank.transaction.TransactionRequest;
 import se.fredaw.tdd.atmsim.bank.transaction.TransactionType;
+import se.fredaw.tdd.atmsim.misc.Message;
+import se.fredaw.tdd.atmsim.misc.Utils;
 import se.fredaw.tdd.atmsim.repository.UserRepository;
 
 public class Bank implements BankService{
@@ -42,6 +44,7 @@ public class Bank implements BankService{
                     throw new IllegalArgumentException("Amount must be greater than 0");
                 }
                 if (account.getBalance() < amount) {
+                    Utils.print(Message.INSUFFICIENT_BALANCE);
                     throw new IllegalArgumentException("Insufficient balance");
                 }
                 account.setBalance(account.getBalance() - amount);

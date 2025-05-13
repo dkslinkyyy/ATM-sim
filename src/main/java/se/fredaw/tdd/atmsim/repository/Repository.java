@@ -4,9 +4,9 @@ import se.fredaw.tdd.atmsim.bank.User;
 
 import java.util.List;
 
-public interface IUserRepository {
-    void save(User entity);
+public interface Repository<T> {
+    void save(T entity);
     void delete(String id);
-    User findById(String id);
-    List<User> findAll();
+    T findById(String id);
+    List<T> findAll();
 }

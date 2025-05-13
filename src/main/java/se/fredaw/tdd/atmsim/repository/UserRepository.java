@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserRepository implements IUserRepository{
+public class UserRepository implements Repository<User> {
     private final Map<String, User> users = new HashMap<>();
 
 
