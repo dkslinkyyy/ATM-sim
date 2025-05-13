@@ -1,8 +1,11 @@
 package se.fredaw.tdd.atmsim.bank;
 
+import se.fredaw.tdd.atmsim.bank.transaction.Transaction;
+import se.fredaw.tdd.atmsim.bank.transaction.TransactionRequest;
+import se.fredaw.tdd.atmsim.bank.transaction.TransactionType;
 import se.fredaw.tdd.atmsim.repository.UserRepository;
 
-public class Bank {
+public class Bank implements BankService{
     private final String name;
     private final UserRepository userRepository;
 
@@ -25,5 +28,33 @@ public class Bank {
 
     public User getUserById(String userId) {
         return userRepository.findById(userId);
+    }
+
+    @Override
+    public void attemptTransaction(TransactionRequest request) {
+        Account account = request.getAccount();
+        int amount = request.getAmount();
+        TransactionType type = request.getType();
+
+        switch (type) {
+            case WITHDRAW -> {
+                if (amount <= 0) {
+                    throw new IllegalArgumentException("Amount must be greater than 0");
+                }
+                if (account.getBalance() < amount) {
+                    throw new IllegalArgumentException("Insufficient balance");
+                }
+                account.setBalance(account.getBalance() - amount);
+                account.addTransaction(new Transaction(type, amount));
+            }
+            case DEPOSIT -> {
+                if (amount <= 0) {
+                    throw new IllegalArgumentException("Amount must be greater than 0");
+                }
+                account.setBalance(account.getBalance() + amount);
+                account.addTransaction(new Transaction(type, amount));
+
+            }
+        }
     }
 }

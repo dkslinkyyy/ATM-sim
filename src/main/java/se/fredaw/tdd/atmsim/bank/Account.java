@@ -1,6 +1,7 @@
 package se.fredaw.tdd.atmsim.bank;
 
 import se.fredaw.tdd.atmsim.bank.transaction.Transaction;
+import se.fredaw.tdd.atmsim.bank.transaction.TransactionType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,31 +20,6 @@ public class Account {
         this.balance = startingBalance;
     }
 
-    public void withdraw(int withdrawAmount) {
-        if (withdrawAmount <= 0) {
-            throw new IllegalArgumentException(" Amount must be positive");
-        }
-
-        if (withdrawAmount > balance) {
-            throw new IllegalArgumentException(" Insufficient funds");
-        }
-
-        setBalance(getBalance() - withdrawAmount);
-        //Adds the witthdrawal to the transsaction history as a enum type of Withdrawal
-        transactions.add(new Transaction(Transaction.Type.WITHDRAWAL, withdrawAmount));
-    }
-
-    // Simple Function to add money
-    public void deposit(int depositAmount) {
-        if (depositAmount <= 0) {
-            throw new IllegalArgumentException("Amount must be positive");
-
-        }
-
-        setBalance(getBalance() + depositAmount);
-        //Adds the deposit to the transsaction history as a enum type of Desposit
-        transactions.add(new Transaction(Transaction.Type.DEPOSIT, depositAmount));
-    }
 
     public void setBalance(int balance) {
         this.balance = balance;
@@ -61,6 +37,9 @@ public class Account {
         return this.pincode.equals(inputPin);
     }
 
+    public void addTransaction(Transaction transaction) {
+        transactions.add(transaction);
+    }
     public List<Transaction> getTransactions() {return transactions;}
 }
 

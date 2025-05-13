@@ -23,6 +23,15 @@ public class Transaction {
         return amount;
     }
 
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                ", type=" + type +
+                ", amount=" + amount +
+                ", time=" + time +
+                '}';
+    }
+
     public LocalDateTime getTime() {
         return time;
     }
