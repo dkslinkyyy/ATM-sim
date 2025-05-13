@@ -45,7 +45,7 @@ public class Bank implements BankService{
                 }
                 if (account.getBalance() < amount) {
 
-                    Utils.throwWith(Message.INSUFFICIENT_BALANCE, IllegalArgumentException::new);
+                    Utils.throwWith( Message.INSUFFICIENT_BALANCE, RuntimeException::new);
                 }
                 account.setBalance(account.getBalance() - amount);
                 account.addTransaction(new Transaction(type, amount));
