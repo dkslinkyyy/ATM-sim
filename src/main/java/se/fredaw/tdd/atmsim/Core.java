@@ -29,6 +29,11 @@ public class Core {
 
         List<Bank> banks = List.of(swedbank,  nordea);
 
+        //?                  TODO:
+
+        //* Break out the actual simulator from here to another class
+        //* To much is going on and the Core class should only initialize it
+
         // Choose bank
         System.out.println("Choose your bank:");
         for (int i = 0; i < banks.size(); i++) {

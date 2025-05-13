@@ -1,31 +1,34 @@
 package se.fredaw.tdd.atmsim.bank;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import se.fredaw.tdd.atmsim.repository.UserRepository;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BankTest {
+    private Bank bank;
+
+    @BeforeEach
+    void setUp() {
+        UserRepository userRepository = new UserRepository();
+        bank = new Bank("Swedbank", userRepository);
+
+        User user = new User("300", "Benny");
+    }
     @Test
-    void bankShouldHaveAccountsAndReturn() {
-        Bank bank = new Bank("Testbank");
-        Account account1 = new Account("person1", "1234", 1000);
-        Account account2 = new Account("person2", "1234", 1000);
+    void bankShouldHaveUserandUserIdAndReturn() {
+        //Check if the bank has a user with the ID 300
+        assertEquals(300, bank.getUserById("300").getUserId());
 
-        bank.addAccount(account1);
-        bank.addAccount(account2);
-
-        //Check if the bank has 2 accounts or not
-        assertEquals(2, bank.getAccounts().size());
-        assertEquals(account1, bank.findAccountbyId("person1"));
-        assertEquals(account2, bank.findAccountbyId("person2"));
+        //Check if the bank has a user called Benny
+        assertEquals("Benny", bank.getUserById("300").getName());
     }
 
     @Test
     void shouldReturnNullBecauseTheAccountDoesntExistInTheList(){
-        Bank bank = new Bank("Testbank");
-        bank.addAccount(new Account("person1", "1234", 1000));
-
-        //Try to see if you can find a account or not
-        assertNull(bank.findAccountbyId("person2"));
+        //Try to see if you can find a account by the Id or not
+        assertNull(bank.getUserById("400").getUserId());
 
     }
 

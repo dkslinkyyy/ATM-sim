@@ -1,8 +1,11 @@
 package se.fredaw.tdd.atmsim.bank;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.fredaw.tdd.atmsim.bank.transaction.Transaction;
+import se.fredaw.tdd.atmsim.bank.transaction.TransactionRequest;
 import se.fredaw.tdd.atmsim.bank.transaction.TransactionType;
+import se.fredaw.tdd.atmsim.repository.UserRepository;
 
 import java.util.List;
 
@@ -10,37 +13,47 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AccountTest {
+    private Bank bank;
+    private Account account;
+
+    @BeforeEach
+    void setUp() {
+        UserRepository userRepository = new UserRepository();
+        bank = new Bank("Swedbank", userRepository);
+        account = new Account("300", "500", 1000);
+
+    }
 
 
     @Test
     void shouldWithDrawalTheMoneyAndBalanceShouldDecrease() {
-        Account account = new Account("abc1234", "1234", 1000);
-        account.withdraw(200);
+
+        bank.attemptTransaction(new TransactionRequest(account,200, TransactionType.WITHDRAW));
 
         assertEquals(800, account.getBalance());
     }
 
     @Test
     void withDrawalOfNegativeAmountShouldThrowException(){
-        Account account = new Account("abc1234", "1234", 1000);
-        assertThrows(IllegalArgumentException.class, () -> account.withdraw(1200) );
+
+        assertThrows(IllegalArgumentException.class, () -> bank.attemptTransaction(new TransactionRequest(account,1200, TransactionType.WITHDRAW)) );
     }
 
     @Test
     void shouldDepositTheMoneyAndBalanceShouldIncrease() {
-        Account account = new Account("abc1234", "1234", 1000);
-        account.deposit(200);
+        bank.attemptTransaction(new TransactionRequest(account,200, TransactionType.DEPOSIT));
 
+        System.out.println("Account balance should be 1200 to be correct:  ");
+        System.out.println("Account balance is :" + account.getBalance());
         assertEquals(1200, account.getBalance());
+
     }
 
 
 
     @Test
     void shouldRecordTheTranssationHistoryAndReturnIt(){
-        Account account = new Account("abc1234", "1234", 1000);
-        account.deposit(300);
-        account.withdraw(500);
+        bank.attemptTransaction(new TransactionRequest(account,200, TransactionType.WITHDRAW));
 
         List<Transaction> accountHistory = account.getTransactions();
 
