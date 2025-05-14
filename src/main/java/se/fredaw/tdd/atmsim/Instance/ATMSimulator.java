@@ -101,8 +101,8 @@ public class ATMSimulator {
             switch (choice) {
                 case 1 -> withdraw(scanner,atmService,chosenBank,chosenAccount);
                 case 2 -> deposit(scanner,atmService,chosenBank,chosenAccount);
-                case 3 -> balance(scanner,atmService,chosenBank,chosenAccount);
-                case 4 -> transactionHistory(scanner,atmService,chosenBank,chosenAccount);
+                case 3 -> balance(chosenAccount);
+                case 4 -> transactionHistory(chosenAccount);
                 case 5 -> isRunning=false;
                 default -> System.out.println("Invalid option.");
             }
@@ -114,7 +114,7 @@ public class ATMSimulator {
 
 
     private void withdraw(Scanner scanner,ATMService atmService, Bank chosenBank, Account chosenAccount){
-        int amount = Utils.scannerInt(scanner, "Enter amount to withdraw: ");
+        int amount = promptAmount(scanner, "withdraw");
 
         try {
             atmService.withdraw(chosenBank, chosenAccount, amount);
@@ -126,7 +126,7 @@ public class ATMSimulator {
     }
 
     private void deposit(Scanner scanner,ATMService atmService, Bank chosenBank, Account chosenAccount){
-        int amount = Utils.scannerInt(scanner, "Enter amount to deposit: ");
+        int amount = promptAmount(scanner, "deposit");
 
         try {
             atmService.deposit(chosenBank, chosenAccount, amount);
@@ -136,24 +136,31 @@ public class ATMSimulator {
         }
     }
 
-    private void transactionHistory(Scanner scanner,ATMService atmService, Bank chosenBank, Account chosenAccount){
+    private void transactionHistory(Account chosenAccount){
         System.out.println("Transaction history:");
         chosenAccount.getTransactions().forEach(System.out::println);
     }
 
-    private void balance(Scanner scanner,ATMService atmService, Bank chosenBank, Account chosenAccount){
+    private void balance(Account chosenAccount){
         System.out.println("Balance: " + chosenAccount.getBalance());
     }
 
     private void printMenu() {
         System.out.println("\n1. Withdraw\n2. Deposit\n3. Print balance\n4. Transaction history\n5. Exit");
         System.out.print("Your choice: ");
-=======
+    }
+
     private void validatoionOfBankChoice(int choice, List<Bank> banks){
         if (choice < 0 || choice >= banks.size()){
             throw new IllegalArgumentException("Invalid bank choice. Please choose a valid bank.");
         }
 
+    }
+
+    //Help function to make it easier to read.
+    // Adds the scanner function and an amount for both deposit and withdrawal
+    private int promptAmount(Scanner scanner, String action){
+        return Utils.scannerInt(scanner, "Enter amount to " + action + ": ");
     }
 
 
