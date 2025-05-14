@@ -1,5 +1,6 @@
 package se.fredaw.tdd.atmsim.misc;
 
+import java.util.Scanner;
 import java.util.function.Function;
 
 public class Utils {
@@ -27,4 +28,19 @@ public class Utils {
             throw exceptionFactory.apply(format(message));
         }
     }
+
+
+    public static int scannerInt(Scanner scanner, String prompt){
+        System.out.print(prompt);
+        while (!scanner.hasNextInt()) {
+            scanner.next();
+            Utils.print(Message.INVALID_INPUT);
+            System.out.print(prompt);
+        }
+        int input = scanner.nextInt();
+        scanner.nextLine();
+        return input;
+    }
+
+
 }

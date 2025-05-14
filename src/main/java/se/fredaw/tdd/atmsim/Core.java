@@ -34,13 +34,5 @@ public class Core {
 
         ATMSimulator atmsim = new ATMSimulator();
         atmsim.init(banks, scanner,atmService);
-
-        //?                  TODO:
-
-
-        //* Break out the actual simulator from here to another class
-        //* To much is going on and the Core class should only initialize it
-
-
     }
 }
