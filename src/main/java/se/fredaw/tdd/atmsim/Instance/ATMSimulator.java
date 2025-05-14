@@ -19,6 +19,16 @@ public class ATMSimulator {
         }
         System.out.print("Ditt val: ");
         int bankChoice = scanner.nextInt() - 1;
+
+        //* Added a Trycatch in case the user tries to select a bank that is not there
+        try {
+            validatoionOfBankChoice(bankChoice, banks);
+        }
+
+        catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            return;
+        }
         Bank chosenBank = banks.get(bankChoice);
 
         scanner.nextLine(); // consume newline
@@ -130,4 +140,12 @@ public class ATMSimulator {
             }
         }
     }
+
+    private void validatoionOfBankChoice(int choice, List<Bank> banks){
+        if (choice < 0 || choice >= banks.size()){
+            throw new IllegalArgumentException("Invalid bank choice. Please choose a valid bank.");
+        }
+    }
+
+
 }
