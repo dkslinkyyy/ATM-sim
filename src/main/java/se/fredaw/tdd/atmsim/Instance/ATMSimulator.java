@@ -20,6 +20,16 @@ public class ATMSimulator {
         }
         System.out.print("Ditt val: ");
         int bankChoice = scanner.nextInt() - 1;
+
+        //* Added a Trycatch in case the user tries to select a bank that is not there
+        try {
+            validatoionOfBankChoice(bankChoice, banks);
+        }
+
+        catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            return;
+        }
         Bank chosenBank = banks.get(bankChoice);
 
         scanner.nextLine(); // consume newline
@@ -102,6 +112,7 @@ public class ATMSimulator {
 
 
 
+
     private void withdraw(Scanner scanner,ATMService atmService, Bank chosenBank, Account chosenAccount){
         int amount = Utils.scannerInt(scanner, "Enter amount to withdraw: ");
 
@@ -137,6 +148,12 @@ public class ATMSimulator {
     private void printMenu() {
         System.out.println("\n1. Withdraw\n2. Deposit\n3. Print balance\n4. Transaction history\n5. Exit");
         System.out.print("Your choice: ");
+=======
+    private void validatoionOfBankChoice(int choice, List<Bank> banks){
+        if (choice < 0 || choice >= banks.size()){
+            throw new IllegalArgumentException("Invalid bank choice. Please choose a valid bank.");
+        }
+
     }
 
 
