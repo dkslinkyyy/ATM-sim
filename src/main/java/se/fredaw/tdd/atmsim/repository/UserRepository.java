@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class UserRepository implements Repository<User> {
-    private final Map<String, User> users = new HashMap<>();
+    private final Map<Integer, User> users = new HashMap<>();
 
 
     @Override
@@ -17,12 +17,12 @@ public class UserRepository implements Repository<User> {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(int id) {
         users.remove(id);
     }
 
     @Override
-    public User findById(String id) {
+    public User findById(int id) {
         return users.get(id);
     }
 
@@ -32,7 +32,7 @@ public class UserRepository implements Repository<User> {
     }
 
 
-    public boolean doesUserExist(String userId) {
+    public boolean doesUserExist(int userId) {
         return users.containsKey(userId);
     }
 }

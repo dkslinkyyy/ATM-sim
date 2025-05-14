@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface Repository<T> {
     void save(T entity);
-    void delete(String id);
-    T findById(String id);
+    void delete(int id);
+    T findById(int id);
     List<T> findAll();
 }

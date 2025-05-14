@@ -28,7 +28,7 @@ public class Bank implements BankService{
         userRepository.save(user);
     }
 
-    public User getUserById(String userId) {
+    public User getUserById(int userId) {
         return userRepository.findById(userId);
     }
 

@@ -1,6 +1,7 @@
 package se.fredaw.tdd.atmsim.Instance;
 
 import se.fredaw.tdd.atmsim.atm.ATMService;
+import se.fredaw.tdd.atmsim.auth.Authenticator;
 import se.fredaw.tdd.atmsim.bank.Account;
 import se.fredaw.tdd.atmsim.bank.Bank;
 import se.fredaw.tdd.atmsim.bank.User;
@@ -33,7 +34,7 @@ public class ATMSimulator {
     private void login(Scanner scanner, ATMService atmService, Bank chosenBank) {
         // Login user
         System.out.print("Enter your user ID: ");
-        String userId = scanner.nextLine();
+        int userId = scanner.nextInt();
         User user = chosenBank.getUserById(userId);
 
         if (user == null) {
@@ -59,10 +60,10 @@ public class ATMSimulator {
 
 
 
-        ATM(scanner, atmService, chosenBank, chosenAccount);
+        ATM(scanner, atmService, chosenBank, chosenAccount, user);
     }
 
-    private void ATM(Scanner scanner, ATMService atmService, Bank chosenBank, Account chosenAccount) {
+    private void ATM(Scanner scanner, ATMService atmService, Bank chosenBank, Account chosenAccount, User user) {
         // Authenticate with PIN
 
         //! TODO TODO TODO
@@ -70,21 +71,10 @@ public class ATMSimulator {
         //! Remove this authentator and replace it with the already existing class
         //!
 
-        int attempts = 3;
-        while (attempts > 0) {
-            System.out.print("Enter PIN: ");
-            String pin = scanner.nextLine();
-            if (chosenAccount.checkPin(pin)) {
-                System.out.println("Authentication successful.");
-                break;
-            } else {
-                attempts--;
-                if (attempts == 0) {
-                    System.out.println("Too many failed attempts. Exiting.");
-                    return;
-                }
-                System.out.println("Wrong PIN. Attempts left: " + attempts);
-            }
+        Authenticator authenticator = new Authenticator();
+
+        if(!authenticator.authenticateWithRetries(user, scanner)) {
+            return;
         }
 
         // Main menu

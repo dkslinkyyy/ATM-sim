@@ -20,14 +20,14 @@ public class Core {
 
         // Create banks and users
         Bank swedbank = new Bank("Swedbank", userRepoSwed);
-        User user1 = new User("123", "Dawid");
-        user1.addAccount(new Account("acc-001", "666", 377));
+        User user1 = new User(123, "Dawid", "333");
+        user1.addAccount(new Account("acc-001", 377));
         swedbank.addUser(user1);
 
         Bank nordea = new Bank("Nordea", userRepoNord);
-        User user2 = new User("500", "Fredrik");
-        user2.addAccount(new Account("acc-002", "500", 5000));
-        user2.addAccount(new Account("acc-003", "500", 6000));
+        User user2 = new User(500, "Fredrik", "123");
+        user2.addAccount(new Account("acc-002", 5000));
+        user2.addAccount(new Account("acc-003", 6000));
         nordea.addUser(user2);
 
         List<Bank> banks = List.of(swedbank,  nordea);

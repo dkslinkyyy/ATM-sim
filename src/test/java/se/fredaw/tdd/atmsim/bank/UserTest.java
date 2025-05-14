@@ -15,8 +15,8 @@ public class UserTest {
 
     @BeforeEach
     public void setUp() {
-        user = new User("500", "Benny");
-        user.addAccount(new Account("acc-001", "666", 377));
+        user = new User(500, "Benny", "377");
+        user.addAccount(new Account("acc-001", 1000));
     }
 
     @Test
