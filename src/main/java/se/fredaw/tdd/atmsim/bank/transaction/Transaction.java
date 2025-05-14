@@ -3,8 +3,6 @@ package se.fredaw.tdd.atmsim.bank.transaction;
 import java.time.LocalDateTime;
 
 public class Transaction {
-    private TransactionType transactionType;
-
     private final TransactionType type;
     private final int amount;
     private final LocalDateTime time;
