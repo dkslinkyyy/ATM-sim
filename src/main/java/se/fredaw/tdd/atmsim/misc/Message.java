@@ -1,7 +1,8 @@
 package se.fredaw.tdd.atmsim.misc;
 
 public enum Message {
-    INSUFFICIENT_BALANCE("Insufficient funds :(", Color.YELLOW);
+    INSUFFICIENT_BALANCE("Insufficient funds :(", Color.YELLOW),
+    INVALID_INPUT("Invalid input. Please enter a number.", Color.YELLOW);
 
 
     private final String placeholder;
