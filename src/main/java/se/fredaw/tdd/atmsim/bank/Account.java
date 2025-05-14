@@ -9,17 +9,14 @@ import java.util.List;
 public class Account {
     private final String accountId;
     private int balance;
-    private String pincode;
 
     //Added a List where the transsaction history will go
     private final List<Transaction> transactions = new ArrayList<>();
 
-    public Account(String accountId, String pincode, int startingBalance) {
+    public Account(String accountId, int startingBalance) {
         this.accountId = accountId;
-        this.pincode = pincode;
         this.balance = startingBalance;
     }
-
 
     public void setBalance(int balance) {
         this.balance = balance;
@@ -31,10 +28,6 @@ public class Account {
 
     public String getAccountId() {
         return accountId;
-    }
-
-    public boolean checkPin(String inputPin) {
-        return this.pincode.equals(inputPin);
     }
 
     public void addTransaction(Transaction transaction) {
