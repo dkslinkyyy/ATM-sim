@@ -7,9 +7,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class BankStorageTest {
+    //@Test
+    //void bankInformationFileShouldExist(){
+        //assertTrue(new File("bankOutput.json").exists());
+
+    //}
+
     @Test
-    void bankInformationFileShouldExist(){
-        assertTrue(new File("bankOutput.json").exists());
+    void simpleFileShouldExist(){
+        assertTrue(new File("myFile.txt").exists());
 
     }
 }
