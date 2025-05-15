@@ -10,7 +10,7 @@ class TransactionRequestTest {
 
     @Test
     void testTransactionRequestStoresValuesCorrectly() {
-        Account account = new Account("acc123", "1234", 1000);
+        Account account = new Account("acc123", 1000);
         int amount = 200;
         TransactionType type = TransactionType.WITHDRAW;
 

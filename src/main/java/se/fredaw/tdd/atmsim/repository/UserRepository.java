@@ -10,6 +10,8 @@ import java.util.Map;
 public class UserRepository implements Repository<User> {
     private final Map<Integer, User> users = new HashMap<>();
 
+    public UserRepository() {
+    }
 
     @Override
     public void save(User entity) {
@@ -26,11 +28,21 @@ public class UserRepository implements Repository<User> {
         return users.get(id);
     }
 
+    public Map<Integer, User> getUsers() {
+        return users;
+    }
+
     @Override
     public List<User> findAll() {
         return new ArrayList<>(users.values());
     }
 
+    @Override
+    public String toString() {
+        return "UserRepository{" +
+                "users=" + users +
+                '}';
+    }
 
     public boolean doesUserExist(int userId) {
         return users.containsKey(userId);

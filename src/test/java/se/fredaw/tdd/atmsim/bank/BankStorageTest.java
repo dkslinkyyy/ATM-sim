@@ -6,6 +6,7 @@ import java.io.File;
 import static org.junit.jupiter.api.Assertions.*;
 
 
+
 public class BankStorageTest {
     //@Test
     //void bankInformationFileShouldExist(){
@@ -15,7 +16,7 @@ public class BankStorageTest {
 
     @Test
     void simpleFileShouldExist(){
-        assertTrue(new File("myFile.txt").exists());
+        assertTrue(new File("C:/Users/Fredrik/Documents/bank.json").exists());
 
     }
 }

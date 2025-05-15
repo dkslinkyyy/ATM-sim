@@ -19,13 +19,17 @@ import java.util.Scanner;
 public class Core {
     public static void main(String[] args) throws IOException {
         //Test for writer of information
-        BankStorage bankStorage = new BankStorage();
-        bankStorage.makeFileJava7();
-        System.out.println("Skapar en fil");
+        UserRepository userRepository1 = new UserRepository();
+        Bank bank = new Bank("SwedBank", userRepository1);
+        User user = new User(300, "Benny", "300");
+        bank.addUser(user);
 
-        String content = Files.readString(Path.of("myFile.txt"));
-        System.out.println("Information i filen: " + content);
-        /*
+        //Saving the bankinformation to the file
+        BankStorage.saveBank(bank);
+
+        Bank bankinformation = BankStorage.loadBank();
+        System.out.println(bankinformation);
+
         Scanner scanner = new Scanner(System.in);
         ATMService atmService = new ATMService();
         UserRepository userRepoSwed = new UserRepository();
@@ -48,7 +52,7 @@ public class Core {
         ATMSimulator atmsim = new ATMSimulator();
         atmsim.init(banks, scanner,atmService);
 
-         */
+
 
     }
 }

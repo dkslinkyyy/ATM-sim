@@ -1,5 +1,6 @@
 package se.fredaw.tdd.atmsim.bank;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.fredaw.tdd.atmsim.bank.transaction.Transaction;
 import se.fredaw.tdd.atmsim.bank.transaction.TransactionRequest;
 import se.fredaw.tdd.atmsim.bank.transaction.TransactionType;
@@ -11,10 +12,17 @@ public class Bank implements BankService{
     private final String name;
     private final UserRepository userRepository;
 
-    public Bank(String name, UserRepository userRepository) {
+
+
+
+    public Bank(
+       @JsonProperty("name")String name,
+       @JsonProperty ("UserRepository") UserRepository userRepository) {
         this.name = name;
         this.userRepository = userRepository;
     }
+
+
 
     public String getName() {
         return name;
@@ -41,6 +49,7 @@ public class Bank implements BankService{
         switch (type) {
             case WITHDRAW -> {
                 if (amount <= 0) {
+
                     throw new IllegalArgumentException("Amount must be greater than 0");
                 }
                 if (account.getBalance() < amount) {
@@ -48,8 +57,10 @@ public class Bank implements BankService{
                     Utils.throwWith( Message.INSUFFICIENT_BALANCE, RuntimeException::new);
                 }
                 account.setBalance(account.getBalance() - amount);
+
                 account.addTransaction(new Transaction(type, amount));
             }
+
             case DEPOSIT -> {
                 if (amount <= 0) {
                     throw new IllegalArgumentException("Amount must be greater than 0");
@@ -59,6 +70,15 @@ public class Bank implements BankService{
 
             }
         }
+
+        BankStorage.saveBank(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Bank: " +
+                name +
+                userRepository.getUsers();
     }
 
 

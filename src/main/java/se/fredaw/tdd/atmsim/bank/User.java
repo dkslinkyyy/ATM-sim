@@ -1,5 +1,6 @@
 package se.fredaw.tdd.atmsim.bank;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.fredaw.tdd.atmsim.auth.Credentials;
 
 import java.util.ArrayList;
@@ -10,7 +11,12 @@ public class User {
     private final String name;
     private final Credentials credentials;
     private final List<Account> accounts;
-    public User(int userId, String name, String pincode) {
+    public User
+            (
+                    @JsonProperty("userId")int userId,
+                    @JsonProperty ("name") String name,
+                    @JsonProperty ("pincode") String pincode)
+    {
         this.userId = userId;
         this.name = name;
         this.credentials = new Credentials(userId, pincode);
@@ -38,5 +44,15 @@ public class User {
     }
     public void addAccount(Account account) {
         accounts.add(account);
+    }
+
+    @Override
+    public String toString() {
+        return
+                "UserId:" + userId + " " +
+                name + '\'' +
+                ", credentials=" + credentials +
+                ", accounts=" + accounts +
+                '}';
     }
 }

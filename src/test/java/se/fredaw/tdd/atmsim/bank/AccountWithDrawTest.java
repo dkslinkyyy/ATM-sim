@@ -16,7 +16,7 @@ class AccountWithDrawTest {
     void setUp() {
         UserRepository userRepository = new UserRepository();
         bank = new Bank("Swedbank", userRepository);
-        account = new Account("Benny", "300", 1000);
+        account = new Account("Benny", 300);
 
     }
 

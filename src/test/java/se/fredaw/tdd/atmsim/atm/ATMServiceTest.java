@@ -17,7 +17,7 @@ class ATMServiceTest {
   void setUp() {
     atmService = new ATMService();
     UserRepository userRepository = new UserRepository();
-    account = new Account("acc001", "1234", 1000);
+    account = new Account("acc001", 1000);
     bank = new Bank("Swedbank", userRepository);
   }
 

@@ -34,6 +34,15 @@ public class Account {
         transactions.add(transaction);
     }
     public List<Transaction> getTransactions() {return transactions;}
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountId='" + accountId + '\'' +
+                ", balance=" + balance +
+                ", transactions=" + transactions +
+                '}';
+    }
 }
 
 

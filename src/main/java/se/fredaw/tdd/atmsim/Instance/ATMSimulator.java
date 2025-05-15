@@ -142,7 +142,7 @@ public class ATMSimulator {
         System.out.print("Your choice: ");
     }
 
-    private void validatoionOfBankChoice(int choice, List<Bank> banks){
+    void validatoionOfBankChoice(int choice, List<Bank> banks){
         if (choice < 0 || choice >= banks.size()){
             throw new IllegalArgumentException("Invalid bank choice. Please choose a valid bank.");
         }
