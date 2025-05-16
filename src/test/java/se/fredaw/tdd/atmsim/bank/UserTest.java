@@ -21,6 +21,10 @@ public class UserTest {
 
     @Test
     void testToSeeIfThereAreAccountsInTheUserList() {
-        assertEquals("acc-001", user.getAccounts());
+        List<Account> accounts = user.getAccounts();
+
+        assertEquals(1, accounts.size());
+        assertEquals("acc-001", accounts.get(0).getAccountId());
+        assertEquals(1000, accounts.get(0).getBalance());
     }
 }

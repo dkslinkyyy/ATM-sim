@@ -14,21 +14,23 @@ public class BankTest {
         UserRepository userRepository = new UserRepository();
         bank = new Bank("Swedbank", userRepository);
 
-        User user = new User("300", "Benny");
+        User user = new User(300, "Benny", "300");
+        bank.addUser(user);
     }
     @Test
     void bankShouldHaveUserandUserIdAndReturn() {
         //Check if the bank has a user with the ID 300
-        assertEquals(300, bank.getUserById("300").getUserId());
+        assertEquals(300, bank.getUserById(300).getUserId());
 
         //Check if the bank has a user called Benny
-        assertEquals("Benny", bank.getUserById("300").getName());
+        assertEquals("Benny", bank.getUserById(300).getName());
     }
 
     @Test
     void shouldReturnNullBecauseTheAccountDoesntExistInTheList(){
         //Try to see if you can find a account by the Id or not
-        assertNull(bank.getUserById("400").getUserId());
+        User notthere = bank.getUserById(400);
+        assertNull(notthere);
 
     }
 

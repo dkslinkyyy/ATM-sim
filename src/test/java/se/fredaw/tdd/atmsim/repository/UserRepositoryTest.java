@@ -10,21 +10,21 @@ public class UserRepositoryTest {
     @Test
     void shouldSaveAndRetrieveAccount() {
         UserRepository repo = new UserRepository();
-        User user = new User("123", "TestUser");
+        User user = new User(123, "TestUser", "300");
 
         repo.save(user);
-        assertEquals(user, repo.findById("123"));
+        assertEquals(user, repo.findById(123));
     }
 
     @Test
     void shouldDeleteAccount() {
         UserRepository repo = new UserRepository();
-        User user = new User("123", "TestUser");
+        User user = new User(123, "TestUser", "300");
 
         repo.save(user);
-        repo.delete("123");
+        repo.delete(123);
 
-        assertNull(repo.findById("123"));
+        assertNull(repo.findById(123));
     }
 
 }

@@ -54,6 +54,7 @@ class AccountTest {
     @Test
     void shouldRecordTheTranssationHistoryAndReturnIt(){
         bank.attemptTransaction(new TransactionRequest(account,200, TransactionType.WITHDRAW));
+        bank.attemptTransaction(new TransactionRequest(account, 500, TransactionType.DEPOSIT));
 
         List<Transaction> accountHistory = account.getTransactions();
 
@@ -61,11 +62,11 @@ class AccountTest {
 
 
         //Check the history of deposit
-        assertEquals(TransactionType.DEPOSIT, accountHistory.get(0).getType());
-        assertEquals(300, accountHistory.get(0).getAmount());
+        assertEquals(TransactionType.WITHDRAW, accountHistory.get(0).getType());
+        assertEquals(200, accountHistory.get(0).getAmount());
 
         //Check the history of withdraw
-        assertEquals(TransactionType.WITHDRAW, accountHistory.get(1).getType());
+        assertEquals(TransactionType.DEPOSIT, accountHistory.get(1).getType());
         assertEquals(500, accountHistory.get(1).getAmount());
 
 

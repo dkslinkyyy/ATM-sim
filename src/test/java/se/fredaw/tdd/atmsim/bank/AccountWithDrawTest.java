@@ -16,35 +16,26 @@ class AccountWithDrawTest {
     void setUp() {
         UserRepository userRepository = new UserRepository();
         bank = new Bank("Swedbank", userRepository);
-        account = new Account("Benny", "300", 1000);
+        account = new Account("Benny", 300);
 
     }
 
     @Test
-    void withdrawItShouldFailBecauseTheAmountisLowerThenWhatisInTotal() {
+    void ThrowsExceptionWhenWithdrawingMoreThanBalance() {
+        TransactionRequest request = new TransactionRequest(account, 500, TransactionType.WITHDRAW);
 
-        try{
-            bank.attemptTransaction(new TransactionRequest(account,300, TransactionType.WITHDRAW));
-        }
-        catch (IllegalArgumentException e){
-            assertEquals("Insufficient funds", e.getMessage());
-        }
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            bank.attemptTransaction(request);
+        });
 
-        assertNotEquals(500, account.getBalance());
-
+        assertEquals(300, account.getBalance(), "Saldo ska inte ändras vid misslyckat uttag");
     }
 
     @Test
-    void withdrawItShouldWorkBecauseTotalisCorrect() {
+    void shouldWithdrawBalanceSuccessfully() {
+        bank.attemptTransaction(new TransactionRequest(account, 300, TransactionType.WITHDRAW));
 
-        try{
-            bank.attemptTransaction(new TransactionRequest(account,700, TransactionType.WITHDRAW));
-        }
-        catch (IllegalArgumentException e){
-            assertEquals("Insufficient funds", e.getMessage());
-        }
-
-        assertEquals(300, account.getBalance());
+        assertEquals(0, account.getBalance(), "Saldo ska vara 0 efter korrekt uttag");
     }
 
 }

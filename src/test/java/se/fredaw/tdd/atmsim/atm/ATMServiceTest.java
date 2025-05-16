@@ -17,14 +17,14 @@ class ATMServiceTest {
   void setUp() {
     atmService = new ATMService();
     UserRepository userRepository = new UserRepository();
-    account = new Account("acc001", "1234", 1000);
+    account = new Account("acc001", 1234);
     bank = new Bank("Swedbank", userRepository);
   }
 
   @Test
   void testWithdrawValidAmount() {
     atmService.withdraw(bank, account, 200);
-    assertEquals(800, account.getBalance());
+    assertEquals(1034, account.getBalance());
   }
 
   @Test
@@ -36,7 +36,7 @@ class ATMServiceTest {
 
   @Test
   void testWithdrawTooMuch() {
-    assertThrows(IllegalArgumentException.class, () -> {
+    assertThrows(RuntimeException.class, () -> {
       atmService.withdraw(bank, account, 1500);
     });
   }
@@ -44,7 +44,7 @@ class ATMServiceTest {
   @Test
   void testDepositValidAmount() {
     atmService.deposit(bank, account, 300);
-    assertEquals(1300, account.getBalance());
+    assertEquals(1534, account.getBalance());
   }
 
   @Test
