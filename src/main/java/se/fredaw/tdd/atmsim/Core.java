@@ -1,87 +1,38 @@
 package se.fredaw.tdd.atmsim;
 
-import se.fredaw.tdd.atmsim.Object.ATMService;
-import se.fredaw.tdd.atmsim.Object.Account;
-
+import se.fredaw.tdd.atmsim.Instance.ATMSimulator;
+import se.fredaw.tdd.atmsim.atm.ATMService;
+import se.fredaw.tdd.atmsim.bank.Account;
+import se.fredaw.tdd.atmsim.bank.Bank;
+import se.fredaw.tdd.atmsim.bank.User;
+import se.fredaw.tdd.atmsim.misc.Message;
+import se.fredaw.tdd.atmsim.misc.Utils;
+import se.fredaw.tdd.atmsim.repository.UserRepository;
+import java.util.List;
 import java.util.Scanner;
 
 public class Core {
-
     public static void main(String[] args) {
-
-        ATMService atmService = new ATMService();
-
-        //Create an account with a specific pin
-        Account acc = new Account("0000");
         Scanner scanner = new Scanner(System.in);
-        acc.setBalance(1000);
+        ATMService atmService = new ATMService();
+        UserRepository userRepoSwed = new UserRepository();
+        UserRepository userRepoNord = new UserRepository();
 
-        //Meny that will apear if the user is correct
-        boolean isRunning = true;
+        // Create banks and users
+        Bank swedbank = new Bank("Swedbank", userRepoSwed);
+        User user1 = new User(123, "Dawid", "333");
+        user1.addAccount(new Account("acc-001", 377));
+        swedbank.addUser(user1);
 
-        boolean isAuthenticated = true;
+        Bank nordea = new Bank("Nordea", userRepoNord);
+        User user2 = new User(500, "Fredrik", "123");
+        user2.addAccount(new Account("acc-002", 5000));
+        user2.addAccount(new Account("acc-003", 6000));
+        nordea.addUser(user2);
 
-        while (isAuthenticated){
-            System.out.println();
-            System.out.println("Enter your pincode");
-            String pincode = scanner.nextLine();
-            acc.authenticate(pincode);
+        List<Bank> banks = List.of(swedbank,  nordea);
 
-            if(acc.isAuthenticated()) {
-                isAuthenticated = false;
-                System.out.println();
-                System.out.println("Authenticated is successful");
-            }
-
-            else{
-                System.out.println();
-                System.out.println("Authentication failed");
-                System.out.println("Please try again");
-            }
-        }
-
-        while (isRunning){
-
-
-
-            System.out.println();
-            System.out.println("1. Withdraw");
-            System.out.println("2. Deposit");
-            System.out.println("3. Exit");
-            int choice = scanner.nextInt();
-            switch (choice){
-                case 1:
-                    System.out.println();
-                    System.out.println("Enter the amount to withdraw");
-                    scanner.nextLine();
-                    int amountToWithdraw = scanner.nextInt();
-                    if(acc.attemptTransaction(Account.TransactionType.WITHDRAW, amountToWithdraw)) {
-                        atmService.withdraw(acc, amountToWithdraw);
-                        System.out.println("Amount withdrawn: " + amountToWithdraw);
-                        System.out.println(acc);
-                    }else {
-                        System.out.println("Insufficient funds");
-                    }
-
-                    break;
-                case 2:
-                    System.out.println();
-                    System.out.println("Enter the amount to deposit");
-                    scanner.nextLine();
-                    int amountToDeposit = scanner.nextInt();
-                    if(acc.attemptTransaction(Account.TransactionType.DEPOSIT, amountToDeposit)) {
-                        atmService.deposit(acc, amountToDeposit);
-                        System.out.println("Amount deposited: " + amountToDeposit);
-                        System.out.println(acc);
-                    }
-                    break;
-
-                case 3:
-                    isRunning = false;
-                    break;
-            }
-        }
-
+        ATMSimulator atmsim = new ATMSimulator();
+        atmsim.init(banks, scanner,atmService);
     }
-
 }
